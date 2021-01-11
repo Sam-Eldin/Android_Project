@@ -1,20 +1,22 @@
 package com.example.android_project.entities;
 
-public class Group
+public class Food
 {
     private Integer mDbid;
     private Integer mNumber;
     private Integer mPrice;
     private String mName;
+    private String mType;
 
 
-    public Group(){}
-    public Group(Integer aDbid, Integer aNumber, Integer aPrice, String aName){
+    public Food(){}
+    public Food(Integer aDbid, Integer aNumber, Integer aPrice, String aName, String aType){
 
         mDbid = aDbid;
         mNumber = aNumber;
         mPrice = aPrice;
         mName = aName;
+        mType = aType;
     }
 
     public Integer getDbid()
@@ -57,11 +59,22 @@ public class Group
         this.mPrice = mPrice;
     }
 
+    public String getType()
+    {
+        return mType;
+    }
 
-    public void updateFrom(Group aGroup){
-        mDbid = aGroup.mDbid;
-        mName = aGroup.mName;
-        mNumber = aGroup.mNumber;
+    public void setType(String mType)
+    {
+        this.mType = mType;
+    }
+
+
+    public void updateFrom(Food aFood){
+        mDbid = aFood.mDbid;
+        mName = aFood.mName;
+        mNumber = aFood.mNumber;
+        mType = aFood.mType;
     }
 
 

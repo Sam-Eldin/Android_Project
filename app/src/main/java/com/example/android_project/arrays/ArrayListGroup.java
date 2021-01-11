@@ -1,11 +1,11 @@
 package com.example.android_project.arrays;
 
-import com.example.android_project.entities.Group;
+import com.example.android_project.entities.Food;
 
 import java.util.ArrayList;
 import java.util.Date;
 
-public class ArrayListGroup extends ArrayList<Group>
+public class ArrayListGroup extends ArrayList<Food>
 {
 
     private Date loaded;
