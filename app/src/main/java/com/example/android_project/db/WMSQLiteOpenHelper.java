@@ -18,15 +18,15 @@ public class WMSQLiteOpenHelper extends SQLiteOpenHelper
     public final static String DB_NAME = "project.db";
 
     // tables in DB
-    public final static String TBL_GROUP = "group";
+    public final static String TBL_FOOD = "food";
 
-    // table group properties
-    public final static String FLD_GROUP_NAME = "name";
-    public final static String FLD_GROUP_NUMBER = "number";
-    public final static String FLD_GROUP_PRICE = "price";
+    // table food properties
+    public final static String FLD_FOOD_NAME = "name";
+    public final static String FLD_FOOD_TYPE = "type";
+    public final static String FLD_FOOD_PRICE = "price";
     public final static String FLD_IMAGE = "image";
 
-    // TODO: table items and its properties
+    // TODO: table group and its properties
 
 
 
@@ -64,11 +64,11 @@ public class WMSQLiteOpenHelper extends SQLiteOpenHelper
     {
         String strSQL;
 
-        strSQL = new StringBuilder().append("CREATE TABLE ").append(TBL_GROUP).append(" ")
+        strSQL = new StringBuilder().append("CREATE TABLE ").append(TBL_FOOD).append(" ")
                 .append(" (").append(BaseColumns._ID).append(" ").append(FLD_BASE_TYPE_KEY).append(" NOT NULL ").append(",")
-                .append(FLD_GROUP_NAME).append(" ").append(FLD_TYPE_VARCHAR_30).append(" NOT NULL ").append(",")
-                .append(FLD_GROUP_NUMBER).append(" ").append(FLD_TYPE_VARCHAR_2).append(" NOT NULL ").append(",")
-                .append(FLD_GROUP_PRICE).append(" ").append(FLD_TYPE_VARCHAR_5).append(" NOT NULL ").append(",")
+                .append(FLD_FOOD_NAME).append(" ").append(FLD_TYPE_VARCHAR_30).append(" NOT NULL ").append(",")
+                .append(FLD_FOOD_TYPE).append(" ").append(FLD_TYPE_VARCHAR_2).append(" NOT NULL ").append(",")
+                .append(FLD_FOOD_PRICE).append(" ").append(FLD_TYPE_VARCHAR_5).append(" NOT NULL ").append(",")
                 .append(FLD_IMAGE).append(" ").append(FLD_TYPE_BLOB).append(");")
                 .toString();
 
@@ -81,7 +81,7 @@ public class WMSQLiteOpenHelper extends SQLiteOpenHelper
     {
         if (oldVersion != newVersion)
         {
-            db.execSQL(new StringBuilder().append("DROP TABLE IF EXISTS ").append(TBL_GROUP).append(";").toString());
+            db.execSQL(new StringBuilder().append("DROP TABLE IF EXISTS ").append(TBL_FOOD).append(";").toString());
 
             onCreate(db);
         }

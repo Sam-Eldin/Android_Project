@@ -9,20 +9,20 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.example.android_project.R;
-import com.example.android_project.arrays.ArrayListGroup;
+import com.example.android_project.arrays.ArrayListFood;
 import com.example.android_project.common.Project;
 import com.example.android_project.entities.Food;
 
 import java.util.ArrayList;
 
-public class AdapterGroupList extends BaseAdapter
+public class AdapterFoodList extends BaseAdapter
 {
 
     private Context mContext;
-    private ArrayListGroup mArrayListGroup;
+    private ArrayListFood mArrayListFood;
 
-    public AdapterGroupList(Context aContext, ArrayListGroup aArrayListGroup){
-        mArrayListGroup = aArrayListGroup;
+    public AdapterFoodList(Context aContext, ArrayListFood aArrayListGroup){
+        mArrayListFood = aArrayListGroup;
         mContext = aContext;
 
     }
@@ -30,13 +30,13 @@ public class AdapterGroupList extends BaseAdapter
     @Override
     public int getCount()
     {
-        return mArrayListGroup.size();
+        return mArrayListFood.size();
     }
 
     @Override
     public Object getItem(int i)
     {
-        return mArrayListGroup.getLoaded();
+        return mArrayListFood.getLoaded();
     }
 
     @Override
@@ -92,7 +92,7 @@ public class AdapterGroupList extends BaseAdapter
         }
 
 
-        food =mArrayListGroup.get(position);
+        food =mArrayListFood.get(position);
         txtFoodName.setText(food.getName());
         txtFoodPrice.setText(food.getPrice());
         txtFoodType.setText(food.getType());

@@ -5,7 +5,7 @@ import com.example.android_project.entities.Food;
 import java.util.ArrayList;
 import java.util.Date;
 
-public class ArrayListGroup extends ArrayList<Food>
+public class ArrayListFood extends ArrayList<Food>
 {
 
     private Date loaded;

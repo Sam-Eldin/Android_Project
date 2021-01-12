@@ -3,17 +3,17 @@ package com.example.android_project.entities;
 public class Food
 {
     private Integer mDbid;
-    private Integer mNumber;
+    private String mType;
     private Integer mPrice;
     private String mName;
-    private String mType;
+    //TODO : ADD PHOTO
+
 
 
     public Food(){}
-    public Food(Integer aDbid, Integer aNumber, Integer aPrice, String aName, String aType){
+    public Food(Integer aDbid, Integer aPrice, String aName, String aType){
 
         mDbid = aDbid;
-        mNumber = aNumber;
         mPrice = aPrice;
         mName = aName;
         mType = aType;
@@ -37,16 +37,6 @@ public class Food
     public void setName(String mName)
     {
         this.mName = mName;
-    }
-
-    public Integer getNumber()
-    {
-        return mNumber;
-    }
-
-    public void setNumber(Integer mNumber)
-    {
-        this.mNumber = mNumber;
     }
 
     public Integer getPrice()
@@ -73,7 +63,7 @@ public class Food
     public void updateFrom(Food aFood){
         mDbid = aFood.mDbid;
         mName = aFood.mName;
-        mNumber = aFood.mNumber;
+        mPrice = aFood.mPrice;
         mType = aFood.mType;
     }
 
