@@ -14,4 +14,8 @@
     <string name="food_name">Food Name</string>
     <string name="price">Price</string>
     <string name="type">Type</string>
+    <string name="all_types">All Types</string>
+    <string name="salad">salad</string>
+    <string name="hot_drinks">Hot drinks</string>
+    <string name="cold_drinks">Cold drinks</string>
 </resources>

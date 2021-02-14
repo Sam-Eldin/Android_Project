@@ -9,6 +9,8 @@ import android.util.Log;
 
 import androidx.annotation.Nullable;
 
+import static android.provider.BaseColumns._ID;
+
 public class WMSQLiteOpenHelper extends SQLiteOpenHelper
 {
 
@@ -28,6 +30,8 @@ public class WMSQLiteOpenHelper extends SQLiteOpenHelper
 
     // TODO: table group and its properties
 
+    public final static String TBL_GROUP = "groop";
+    public final static String FLD_GROUP_NAME = "name";
 
 
 
@@ -57,23 +61,36 @@ public class WMSQLiteOpenHelper extends SQLiteOpenHelper
             Log.d(TAG, "db corrupted");
         }
     };
-
+//
+//    private static final String CREATE_TABLE = "create table " + TBL_GROUP + " (" +
+//            _ID
+//            + " INTEGER PRIMARY KEY AUTOINCREMENT, " + FLD_GROUP_NAME + " " + FLD_TYPE_VARCHAR_30 + " TEXT NOT NULL, " + " );";
 
     @Override
     public void onCreate(SQLiteDatabase db)
     {
         String strSQL;
 
-        strSQL = new StringBuilder().append("CREATE TABLE ").append(TBL_FOOD).append(" ")
-                .append(" (").append(BaseColumns._ID).append(" ").append(FLD_BASE_TYPE_KEY).append(" NOT NULL ").append(",")
-                .append(FLD_FOOD_NAME).append(" ").append(FLD_TYPE_VARCHAR_30).append(" NOT NULL ").append(",")
-                .append(FLD_FOOD_TYPE).append(" ").append(FLD_TYPE_VARCHAR_2).append(" NOT NULL ").append(",")
-                .append(FLD_FOOD_PRICE).append(" ").append(FLD_TYPE_VARCHAR_5).append(" NOT NULL ").append(",")
-                .append(FLD_IMAGE).append(" ").append(FLD_TYPE_BLOB).append(");")
-                .toString();
+        strSQL = "CREATE TABLE " + TBL_FOOD + " " +
+                " (" + _ID + " " + FLD_BASE_TYPE_KEY + " NOT NULL " + "," +
+                FLD_FOOD_NAME + " " + FLD_TYPE_VARCHAR_30 + " NOT NULL " + "," +
+                FLD_FOOD_TYPE + " " + FLD_TYPE_VARCHAR_30 + " NOT NULL " + "," +
+                FLD_FOOD_PRICE + " " + FLD_TYPE_VARCHAR_5 + " NOT NULL " + "," +
+                FLD_IMAGE + " " + FLD_TYPE_BLOB + ");";
 
         Log.d(TAG, strSQL);
         db.execSQL(strSQL);
+
+        strSQL = "CREATE TABLE " + TBL_GROUP + " " +
+                " (" + _ID + " " + FLD_BASE_TYPE_KEY + " NOT NULL " + "," +
+                FLD_GROUP_NAME + " " + FLD_TYPE_VARCHAR_30 + " NOT NULL " + ");";
+        Log.d(TAG, strSQL);
+        db.execSQL(strSQL);
+
+    //    db.execSQL(CREATE_TABLE);
+
+
+
     }
 
     @Override
@@ -82,7 +99,7 @@ public class WMSQLiteOpenHelper extends SQLiteOpenHelper
         if (oldVersion != newVersion)
         {
             db.execSQL(new StringBuilder().append("DROP TABLE IF EXISTS ").append(TBL_FOOD).append(";").toString());
-
+            db.execSQL(new StringBuilder().append("DROP TABLE IF EXISTS ").append(TBL_GROUP).append(";").toString());
             onCreate(db);
         }
     }

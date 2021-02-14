@@ -68,7 +68,6 @@ public class AdapterFoodList extends BaseAdapter
 
             // find the objects inside the custom layout...
             txtFoodName = (TextView) resultView.findViewById((R.id.txtItmFood));
-            txtFoodType = (TextView) resultView.findViewById((R.id.txtItmType));
             txtFoodPrice = (TextView) resultView.findViewById((R.id.txtItmPrice));
             imgBtnFood = (ImageButton) resultView.findViewById((R.id.imgBtnFood));
 
@@ -77,7 +76,6 @@ public class AdapterFoodList extends BaseAdapter
 
             resultView.setTag(R.id.txtItmFood, txtFoodName);
             resultView.setTag(R.id.txtItmPrice, txtFoodPrice);
-            resultView.setTag(R.id.txtItmType, txtFoodType);
             resultView.setTag(R.id.imgBtnFood, imgBtnFood);
 
         } else
@@ -87,7 +85,6 @@ public class AdapterFoodList extends BaseAdapter
             // extract all the pointers to the objects from the "tag" list.
             txtFoodName = (TextView) resultView.getTag(R.id.txtItmFood);
             txtFoodPrice = (TextView) resultView.getTag(R.id.txtItmPrice);
-            txtFoodType = (TextView) resultView.getTag(R.id.txtItmType);
             imgBtnFood = (ImageButton) resultView.getTag(R.id.imgBtnFood);
         }
 
@@ -95,7 +92,6 @@ public class AdapterFoodList extends BaseAdapter
         food =mArrayListFood.get(position);
         txtFoodName.setText(food.getName());
         txtFoodPrice.setText(food.getPrice());
-        txtFoodType.setText(food.getType());
 
 
 
