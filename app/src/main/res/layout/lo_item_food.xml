@@ -3,36 +3,39 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
     android:orientation="vertical"
     >
-
     <ImageButton
         android:id="@+id/imgBtnFood"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@mipmap/ic_launcher"/>
-
-
+        android:src="@mipmap/ic_launcher"
+        android:scaleType="fitCenter"
+        android:adjustViewBounds="true"
+        />
     <TextView
         android:id="@+id/txtItmFood"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/food_name"
         android:textAlignment="center"
-        android:gravity="center_horizontal" />
-
+        android:gravity="center_horizontal"
+        android:text="@string/food_name"
+        android:textStyle="bold"
+        android:textSize="15sp"
+        android:textColor="@color/black"
+        />
     <TextView
         android:id="@+id/txtItmPrice"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/price"
-        android:textStyle="bold"
         android:gravity="center_horizontal"
-
+        android:text="@string/price"
+        android:textAlignment="center"
+        android:textStyle="bold"
+        android:textSize="15sp"
+        android:textColor="@color/black"
         />
-
-
 
 </LinearLayout>

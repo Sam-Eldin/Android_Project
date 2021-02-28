@@ -96,6 +96,6 @@ public class AdapterFoodList extends BaseAdapter
 
 
 
-        return null;
+        return resultView;
     }
 }
