@@ -7,13 +7,12 @@
     android:layout_height="wrap_content"
     android:orientation="vertical"
     >
-    <ImageButton
+    <ImageView
         android:id="@+id/imgBtnFood"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@mipmap/ic_launcher"
-        android:scaleType="fitCenter"
-        android:adjustViewBounds="true"
+        android:layout_width="100dp"
+        android:layout_height="match_parent"
+        android:scaleType="centerCrop"
+
         />
     <TextView
         android:id="@+id/txtItmFood"

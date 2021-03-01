@@ -1,26 +1,22 @@
 package com.example.android_project.entities;
 
-import android.widget.ImageButton;
-
 public class Food
 {
     private Integer mDbid;
     private String mType;
     private Integer mPrice;
     private String mName;
-    private ImageButton mImgBtn;
-    private String ImagePath;
-    //TODO : ADD PHOTO
+    private String mImage;
 
 
     public Food(){}
-    public Food(Integer aDbid, Integer aPrice, String aName, String aType, ImageButton aImgBtn){
+    public Food(Integer aDbid, Integer aPrice, String aName, String aType, String aImage){
 
         mDbid = aDbid;
         mPrice = aPrice;
         mName = aName;
         mType = aType;
-        mImgBtn = aImgBtn;
+        mImage = aImage;
     }
 
     public Integer getDbid()
@@ -63,24 +59,16 @@ public class Food
         this.mType = mType;
     }
 
-    public ImageButton getImgBtn()
+
+
+    public String getImage()
     {
-        return mImgBtn;
+        return mImage;
     }
 
-    public void setImgBtn(ImageButton mImgBtn)
+    public void setImage(String image)
     {
-        this.mImgBtn = mImgBtn;
-    }
-
-    public String getImagePath()
-    {
-        return ImagePath;
-    }
-
-    public void setImagePath(String imagePath)
-    {
-        ImagePath = imagePath;
+        mImage = image;
     }
 
     public void updateFrom(Food aFood){
@@ -88,7 +76,7 @@ public class Food
         mName = aFood.mName;
         mPrice = aFood.mPrice;
         mType = aFood.mType;
-        mImgBtn = aFood.mImgBtn;
+        mImage = aFood.mImage;
     }
 
 

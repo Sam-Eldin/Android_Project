@@ -89,8 +89,6 @@ public class WMSQLiteOpenHelper extends SQLiteOpenHelper
 
     //    db.execSQL(CREATE_TABLE);
 
-
-
     }
 
     @Override

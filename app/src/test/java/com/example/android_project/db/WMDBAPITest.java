@@ -47,7 +47,7 @@ public class WMDBAPITest
         food.setName("a");
         food.setPrice(10);
         food.setType("c");
-        food.setImagePath("atHome");
+        food.setImage("atHome");
         mDataSource.saveFood(food);
     }
 

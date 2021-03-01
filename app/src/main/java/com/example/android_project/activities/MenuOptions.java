@@ -62,12 +62,26 @@ public class MenuOptions extends AppCompatActivity implements AdapterView.OnItem
 
         ArrayListFood foods = new ArrayListFood();
         Food t = new Food();
+        Food t2 = new Food();
+        Food t3 = new Food();
         t.setName("a");
         t.setPrice(10);
         t.setType("AllTypes");
-        t.setImagePath("https://www.google.com/imgres?imgurl=https%3A%2F%2Fcnet2.cbsistatic.com%2Fimg%2F-e95qclc6pwSnGE2YccC2oLDW_8%3D%2F1200x675%2F2020%2F04%2F16%2F7d6d8ed2-e10c-4f91-b2dd-74fae951c6d8%2Fbazaart-edit-app.jpg&imgrefurl=https%3A%2F%2Fwww.cnet.com%2Fhow-to%2Fbest-photo-editing-apps-smartphone-iphone-android-you-need-to-download-free%2F&tbnid=ZEgkfdH8XS3N5M&vet=12ahUKEwjNkb3pnovvAhXMwAIHHbtnApYQMygDegUIARDWAQ..i&docid=Ye6RsvBD2HbZaM&w=1200&h=675&q=photo&ved=2ahUKEwjNkb3pnovvAhXMwAIHHbtnApYQMygDegUIARDWAQ");
+        t.setImage("https://hellonutritarian.com/wp-content/uploads/2017/09/Hummus-Balsamic-Dressing-Whole-Food-Plant-Based-Diet-oil-free-vegan-salad-dressing-Dr-Greger-How-Not-to-Die-What-the-Health-Dr-Fuhrman-Eat-to-Live-program-the-salad-is-the-main-dish-500x500.jpg");
+
+        t2.setName("a");
+        t2.setPrice(10);
+        t2.setType("AllTypes");
+        t2.setImage("https://hellonutritarian.com/wp-content/uploads/2017/09/Hummus-Balsamic-Dressing-Whole-Food-Plant-Based-Diet-oil-free-vegan-salad-dressing-Dr-Greger-How-Not-to-Die-What-the-Health-Dr-Fuhrman-Eat-to-Live-program-the-salad-is-the-main-dish-500x500.jpg");
+
+        t3.setName("a");
+        t3.setPrice(10);
+        t3.setType("AllTypes");
+        t3.setImage("https://hellonutritarian.com/wp-content/uploads/2017/09/Hummus-Balsamic-Dressing-Whole-Food-Plant-Based-Diet-oil-free-vegan-salad-dressing-Dr-Greger-How-Not-to-Die-What-the-Health-Dr-Fuhrman-Eat-to-Live-program-the-salad-is-the-main-dish-500x500.jpg");
 
         foods.add(t);
+        foods.add(t2);
+        foods.add(t3);
         mAdapterSectionsFood = new AdapterSectionsFood(getSupportFragmentManager());
         RecyclerViewAdapter recyclerViewAdapter = new RecyclerViewAdapter(mContext, foods, null);
         recyclerView.setAdapter(recyclerViewAdapter);

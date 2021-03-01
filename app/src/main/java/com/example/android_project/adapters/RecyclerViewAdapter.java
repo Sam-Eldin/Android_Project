@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.android_project.R;
@@ -34,7 +35,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter {
         Food item;
         TextView txtFoodName;
         TextView txtFoodPrice;
-        ImageButton imgBtnFood;
+        ImageView image;
 
         View resultView;
         LayoutInflater layoutInflater;
@@ -43,23 +44,22 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter {
         {
             super(v);
 
-         //   layoutInflater = (LayoutInflater) Project.APP_INSTANCE.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-         //   resultView = layoutInflater.inflate(R.layout.lo_item_food, null);
+            layoutInflater = (LayoutInflater) Project.APP_INSTANCE.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+            resultView = layoutInflater.inflate(R.layout.lo_item_food, null);
             txtFoodName = (TextView) v.findViewById((R.id.txtItmFood));
             txtFoodPrice = (TextView) v.findViewById((R.id.txtItmPrice));
-            imgBtnFood = (ImageButton) v.findViewById((R.id.imgBtnFood));
+            image = (ImageView) v.findViewById((R.id.imgBtnFood));
             v.setTag(R.id.txtItmFood, txtFoodName);
             v.setTag(R.id.txtItmPrice, txtFoodPrice);
-            v.setTag(R.id.imgBtnFood, imgBtnFood);
+            v.setTag(R.id.imgBtnFood, image);
 
-            imgBtnFood.setOnClickListener(new View.OnClickListener()
+            image.setOnClickListener(new View.OnClickListener()
             {
                 @Override
-                public void onClick(View v)
-                {
+                public void onClick(View v) {
 
                     Intent intent = new Intent(mContext, ActPhoto.class);
-                    intent.putExtra("img", item.getImagePath());
+                    intent.putExtra("img", item.getImage());
                     mContext.startActivity(intent);
                 }
             });
@@ -70,7 +70,8 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter {
             this.item = item;
             txtFoodName.setText(item.getName());
             txtFoodPrice.setText((item.getPrice()).toString());
-            Picasso.get().load(item.getImagePath()).into(imgBtnFood);
+
+            Picasso.get().load(item.getImage()).into(image);
         }
         @Override
         public void onClick(View view) {
