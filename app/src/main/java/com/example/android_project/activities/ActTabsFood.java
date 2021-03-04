@@ -1,20 +1,14 @@
 package com.example.android_project.activities;
 
 import android.os.Bundle;
-import android.widget.Button;
-import android.widget.GridLayout;
-import android.widget.Toast;
 
 import com.example.android_project.R;
 import com.example.android_project.adapters.AdapterSectionsFood;
-import com.example.android_project.adapters.RecyclerViewAdapter;
-import com.example.android_project.entities.Food;
+import com.example.android_project.fragments.FragmentAllTypes;
 import com.google.android.material.tabs.TabLayout;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager.widget.ViewPager;
 
 public class ActTabsFood extends AppCompatActivity

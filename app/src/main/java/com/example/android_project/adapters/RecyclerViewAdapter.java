@@ -40,8 +40,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter {
         View resultView;
         LayoutInflater layoutInflater;
 
-        public ViewHolder(View v)
-        {
+        public ViewHolder(View v) {
             super(v);
 
             layoutInflater = (LayoutInflater) Project.APP_INSTANCE.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -53,8 +52,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter {
             v.setTag(R.id.txtItmPrice, txtFoodPrice);
             v.setTag(R.id.imgBtnFood, image);
 
-            image.setOnClickListener(new View.OnClickListener()
-            {
+            image.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
 
@@ -73,11 +71,19 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter {
 
             Picasso.get().load(item.getImage()).into(image);
         }
+
         @Override
         public void onClick(View view) {
             if (mListener != null) {
                 mListener.onItemClick(item);
-            } }}
+            }
+        }
+    }
+
+    public void setmArrayListFood(ArrayListFood ff){
+        mArrayListFood = ff;
+    }
+
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
@@ -88,14 +94,15 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter {
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         final Food item = mArrayListFood.get(position);
-        
-           ((ViewHolder) holder).setData(mArrayListFood.get(position));     }
+
+        ((ViewHolder) holder).setData(mArrayListFood.get(position));
+    }
 
     @Override
-    public int getItemCount()
-    {
+    public int getItemCount() {
         return mArrayListFood.size();
     }
+
     public interface ItemListener {
         void onItemClick(Food item);
     }

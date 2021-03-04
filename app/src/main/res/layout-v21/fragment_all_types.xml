@@ -52,7 +52,7 @@
             android:orientation="vertical"
             >
 
-            <include layout="@layout/lo_item_food" />
+<!--            <include layout="@layout/lo_item_food" />-->
 
         </LinearLayout>
 

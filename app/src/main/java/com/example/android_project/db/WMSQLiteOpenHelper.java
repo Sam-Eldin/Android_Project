@@ -39,7 +39,7 @@ public class WMSQLiteOpenHelper extends SQLiteOpenHelper
     public static final String FLD_BASE_TYPE_KEY = "integer primary key autoincrement";
     public static final String FLD_TYPE_INTEGER = "integer";
     public static final String FLD_TYPE_REAL = "real";
-    public static final String FLD_TYPE_BLOB = "blob";
+    public static final String FLD_TYPE_VARCHAR_1024 = "nvarchar(1024)";
     public static final String FLD_TYPE_VARCHAR_2 = "nvarchar(2)";
     public static final String FLD_TYPE_VARCHAR_5 = "nvarchar(5)";
     public static final String FLD_TYPE_VARCHAR_30 = "nvarchar(30)";
@@ -76,7 +76,7 @@ public class WMSQLiteOpenHelper extends SQLiteOpenHelper
                 FLD_FOOD_NAME + " " + FLD_TYPE_VARCHAR_30 + " NOT NULL " + "," +
                 FLD_FOOD_TYPE + " " + FLD_TYPE_VARCHAR_30 + " NOT NULL " + "," +
                 FLD_FOOD_PRICE + " " + FLD_TYPE_VARCHAR_5 + " NOT NULL " + "," +
-                FLD_IMAGE + " " + FLD_TYPE_BLOB + ");";
+                FLD_IMAGE + " " + FLD_TYPE_VARCHAR_1024 + ");";
 
         Log.d(TAG, strSQL);
         db.execSQL(strSQL);

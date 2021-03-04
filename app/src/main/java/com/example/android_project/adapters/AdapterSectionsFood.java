@@ -1,6 +1,7 @@
 package com.example.android_project.adapters;
 
-import com.example.android_project.activities.FragmentAllTypes;
+import com.example.android_project.fragments.FragmentAllTypes;
+import com.example.android_project.fragments.FragmentSalad;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -11,15 +12,21 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 
+import org.jetbrains.annotations.NotNull;
+
 public class AdapterSectionsFood extends FragmentPagerAdapter
 {
     private final List<Fragment>mFragmentList = new ArrayList<>();
     private final List<String>mFragmentTitleList = new ArrayList<>();
 
 
-    public void addFragmentAllTypes(FragmentAllTypes aFragmentAll, String aTitleAll){
+    public void addFragmentAllTypes(FragmentAllTypes aFragmentAll, String aTitleAll) {
         mFragmentList.add(aFragmentAll);
         mFragmentTitleList.add(aTitleAll);
+    }
+    public void addFragment(Fragment fm, String title){
+        mFragmentList.add(fm);
+        mFragmentTitleList.add(title);
     }
     public AdapterSectionsFood(@NonNull FragmentManager fm)
     {
@@ -38,11 +45,15 @@ public class AdapterSectionsFood extends FragmentPagerAdapter
         return mFragmentTitleList.get(position);
     }
 
-    @NonNull
+    @NotNull
     @Override
     public Fragment getItem(int position)
     {
-        return mFragmentList.get(position);
+        switch (position){
+            case 0: return new FragmentAllTypes();
+            case 1 : return new FragmentSalad();
+        }
+        return new FragmentSalad();
     }
 
     @Override
