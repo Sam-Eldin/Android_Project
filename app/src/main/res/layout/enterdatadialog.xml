@@ -15,31 +15,28 @@
             android:layout_marginLeft="4dp"
             android:layout_marginRight="4dp"
             android:layout_marginBottom="4dp"
-            android:hint="Food Name" />
-        <EditText
+            android:hint="@string/food_name"
+            android:importantForAutofill="no" />
+
+
+        <Spinner
             android:id="@+id/foodtype"
-            android:inputType="textPersonName"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="4dp"
-            android:layout_marginLeft="4dp"
-            android:layout_marginRight="4dp"
-            android:layout_marginBottom="4dp"
-            android:fontFamily="sans-serif"
-            android:hint="Food Type"/>
+            android:layout_height="wrap_content" />
         <EditText
             android:id="@+id/foodprice"
-            android:inputType="textEmailAddress"
+            android:inputType="numberSigned"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp"
             android:layout_marginLeft="4dp"
             android:layout_marginRight="4dp"
             android:layout_marginBottom="4dp"
-            android:hint="Food Price" />
+            android:hint="@string/food_price"
+            android:importantForAutofill="no" />
         <EditText
             android:id="@+id/foodimage"
-            android:inputType="textPassword"
+            android:inputType="text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp"
@@ -47,7 +44,8 @@
             android:layout_marginRight="4dp"
             android:layout_marginBottom="16dp"
             android:fontFamily="sans-serif"
-            android:hint="Image URL"/>
+            android:hint="@string/image_url"
+            android:importantForAutofill="no" />
 
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

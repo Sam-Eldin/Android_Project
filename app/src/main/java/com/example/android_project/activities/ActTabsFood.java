@@ -13,8 +13,6 @@ import androidx.viewpager.widget.ViewPager;
 
 public class ActTabsFood extends AppCompatActivity
 {
-    private AdapterSectionsFood mAdapterSectionsFood;
-    private ViewPager mViewPager;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState)
@@ -22,17 +20,14 @@ public class ActTabsFood extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.app_bar_main);
 
-        mAdapterSectionsFood = new AdapterSectionsFood(getSupportFragmentManager());
-
         initComponents();
     }
 
     public void initComponents(){
-        // Set up the ViewPager with the sections adapter
-        mViewPager = (ViewPager)findViewById(R.id.container);
+        ViewPager mViewPager = findViewById(R.id.container);
         setupViewPager(mViewPager);
 
-        TabLayout tabLayout = (TabLayout)findViewById(R.id.tabFoodTypes);
+        TabLayout tabLayout = findViewById(R.id.tabFoodTypes);
         tabLayout.setupWithViewPager(mViewPager);
 
     }

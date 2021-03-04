@@ -18,4 +18,8 @@
     <string name="salad">salad</string>
     <string name="hot_drinks">Hot drinks</string>
     <string name="cold_drinks">Cold drinks</string>
+    <string name="image_url">Image URL</string>
+    <string name="food_price">Food Price</string>
+    <string name="food_type">Food Type</string>
+    <string name="add_new_item_to_the_database">Add new item to the database</string>
 </resources>

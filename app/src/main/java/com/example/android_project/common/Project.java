@@ -5,8 +5,6 @@ import android.app.Application;
 import com.example.android_project.arrays.ArrayListFood;
 import com.example.android_project.db.WMDBAPI;
 
-import java.util.ArrayList;
-
 public class Project extends Application
 {
     public static Project APP_INSTANCE = null;
@@ -19,7 +17,7 @@ public class Project extends Application
     public void onCreate()
     {
         super.onCreate();
-
+        super.getApplicationContext().deleteDatabase("project.db");
         mWMDBAPI = new WMDBAPI(this);
 
         mArrayListFood = new ArrayListFood();
@@ -39,6 +37,4 @@ public class Project extends Application
     {
         this.mArrayListFood = mArrayListFood;
     }
-
-
 }

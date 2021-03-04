@@ -5,14 +5,11 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.provider.BaseColumns;
-import android.widget.ImageButton;
 import android.widget.Toast;
 
 import com.example.android_project.arrays.ArrayListFood;
 import com.example.android_project.common.Project;
-import com.example.android_project.common.Utils;
 import com.example.android_project.entities.Food;
-import com.example.android_project.entities.Group;
 
 import java.util.Arrays;
 import java.util.Date;
@@ -21,43 +18,26 @@ import static com.example.android_project.db.WMSQLiteOpenHelper.FLD_BASE_TYPE_KE
 import static com.example.android_project.db.WMSQLiteOpenHelper.FLD_FOOD_NAME;
 import static com.example.android_project.db.WMSQLiteOpenHelper.FLD_FOOD_PRICE;
 import static com.example.android_project.db.WMSQLiteOpenHelper.FLD_FOOD_TYPE;
-import static com.example.android_project.db.WMSQLiteOpenHelper.FLD_GROUP_NAME;
 import static com.example.android_project.db.WMSQLiteOpenHelper.FLD_IMAGE;
 import static com.example.android_project.db.WMSQLiteOpenHelper.TBL_FOOD;
-import static com.example.android_project.db.WMSQLiteOpenHelper.TBL_GROUP;
 
 public class WMDBAPI {
 
-    private Context mContext;
-    private WMSQLiteOpenHelper mWMSQLiteOpenHelper;
-    private SQLiteDatabase mSQLiteDatabaseRW;
-    private SQLiteDatabase mSQLiteDatabaseRO;
-    private Utils mUtils;
+    private final Context mContext;
+    private final SQLiteDatabase mSQLiteDatabaseRW;
+    private final SQLiteDatabase mSQLiteDatabaseRO;
 
     /**
-     * @param aContext
+     * @param aContext ddd
      */
     public WMDBAPI(Context aContext) {
         mContext = aContext;
 
-        mWMSQLiteOpenHelper = new WMSQLiteOpenHelper(mContext);
+        WMSQLiteOpenHelper mWMSQLiteOpenHelper = new WMSQLiteOpenHelper(mContext);
 
         mSQLiteDatabaseRO = mWMSQLiteOpenHelper.getReadableDatabase();
         mSQLiteDatabaseRW = mWMSQLiteOpenHelper.getWritableDatabase();
 
-    }
-
-    public boolean saveGroup(Group aGroup){
-        ContentValues contentValues = new ContentValues();
-        contentValues.put(FLD_GROUP_NAME, aGroup.getName());
-
-        long result = mSQLiteDatabaseRW.insert(TBL_GROUP, null, contentValues);
-        return result != -1;
-    }
-
-    public Integer removeGroup(Integer aGroupID){
-        int result = mSQLiteDatabaseRW.delete(TBL_GROUP, FLD_BASE_TYPE_KEY + " = " + Arrays.toString(new String[aGroupID]), null);
-        return result;
     }
 
     public boolean saveFood(Food aFood)
@@ -74,24 +54,22 @@ public class WMDBAPI {
 
 
         // if its new save it
+        long result;
         if (aFood.getDbid() == null)
         {
-
-            long result = mSQLiteDatabaseRW.insert(TBL_FOOD, null, contentValues);
-            return result != -1;
+            result = mSQLiteDatabaseRW.insert(TBL_FOOD, null, contentValues);
         } else
         {  // if its already exist update it
-            long result = mSQLiteDatabaseRW.update(TBL_FOOD,
+            result = mSQLiteDatabaseRW.update(TBL_FOOD,
                     contentValues, BaseColumns._ID + "= " + aFood.getDbid(), null);
-            return result != -1;
         }
+        return result != -1;
 
     }
 
     public Integer removeFood(Integer aFoodID) {
-        int result = mSQLiteDatabaseRW.delete(TBL_FOOD
+        return mSQLiteDatabaseRW.delete(TBL_FOOD
                 , FLD_BASE_TYPE_KEY + " = " + Arrays.toString(new String[aFoodID]), null);
-        return result;
     }
 
     public ArrayListFood loadFoodList(String aType){

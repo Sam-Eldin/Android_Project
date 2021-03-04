@@ -30,12 +30,7 @@ public class AdapterSectionsFood extends FragmentPagerAdapter
     }
     public AdapterSectionsFood(@NonNull FragmentManager fm)
     {
-        super(fm);
-    }
-
-    public AdapterSectionsFood(@NonNull FragmentManager fm, int behavior)
-    {
-        super(fm, behavior);
+        super(fm, BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT);
     }
 
     @Nullable
