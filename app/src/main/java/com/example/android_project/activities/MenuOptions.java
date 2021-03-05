@@ -157,6 +157,7 @@ public class MenuOptions extends AppCompatActivity implements AdapterView.OnItem
             food.setImage(foodimage.getText().toString());
             db.saveFood(food);
             updateTab(currentTab);
+            Toast.makeText(Project.APP_INSTANCE.getApplicationContext(), "Successfully added the food", Toast.LENGTH_SHORT).show();
         });
         dialogBuilder.setNegativeButton("Cancel", (dialog, whichButton) -> {
             //pass
