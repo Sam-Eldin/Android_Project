@@ -2,128 +2,128 @@ package com.example.android_project.db;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.provider.BaseColumns;
+import android.widget.Toast;
 
-import com.example.android_project.common.Utils;
+import com.example.android_project.arrays.ArrayListFood;
+import com.example.android_project.common.Project;
 import com.example.android_project.entities.Food;
-import com.example.android_project.entities.Group;
 
-import java.util.Arrays;
+import java.util.Date;
 
-import static com.example.android_project.db.WMSQLiteOpenHelper.FLD_BASE_TYPE_KEY;
+import kotlin.contracts.ReturnsNotNull;
+
 import static com.example.android_project.db.WMSQLiteOpenHelper.FLD_FOOD_NAME;
 import static com.example.android_project.db.WMSQLiteOpenHelper.FLD_FOOD_PRICE;
 import static com.example.android_project.db.WMSQLiteOpenHelper.FLD_FOOD_TYPE;
-import static com.example.android_project.db.WMSQLiteOpenHelper.FLD_GROUP_NAME;
 import static com.example.android_project.db.WMSQLiteOpenHelper.FLD_IMAGE;
 import static com.example.android_project.db.WMSQLiteOpenHelper.TBL_FOOD;
-import static com.example.android_project.db.WMSQLiteOpenHelper.TBL_GROUP;
 
 public class WMDBAPI {
 
-    private Context mContext;
-    private WMSQLiteOpenHelper mWMSQLiteOpenHelper;
-    private SQLiteDatabase mSQLiteDatabaseRW;
-    private SQLiteDatabase mSQLiteDatabaseRO;
-    private Utils mUtils;
+    private final Context mContext;
+    private final SQLiteDatabase mSQLiteDatabaseRW;
+    private final SQLiteDatabase mSQLiteDatabaseRO;
 
     /**
-     * @param aContext
+     * @param aContext ddd
      */
     public WMDBAPI(Context aContext) {
         mContext = aContext;
 
-        mWMSQLiteOpenHelper = new WMSQLiteOpenHelper(mContext);
+        WMSQLiteOpenHelper mWMSQLiteOpenHelper = new WMSQLiteOpenHelper(mContext);
 
         mSQLiteDatabaseRO = mWMSQLiteOpenHelper.getReadableDatabase();
         mSQLiteDatabaseRW = mWMSQLiteOpenHelper.getWritableDatabase();
 
     }
 
-    public boolean saveGroup(Group aGroup){
-        ContentValues contentValues = new ContentValues();
-        contentValues.put(FLD_GROUP_NAME, aGroup.getName());
-
-        long result = mSQLiteDatabaseRW.insert(TBL_GROUP, null, contentValues);
-        if (result == -1)
-            return false;
-        else
-            return true;
-    }
-
-    public Integer removeGroup(Integer aGroupID){
-        int result = mSQLiteDatabaseRW.delete(TBL_GROUP, FLD_BASE_TYPE_KEY + " = " + Arrays.toString(new String[aGroupID]), null);
-        return result;
-    }
-
-    public boolean saveFood(Food aFood)
+    public void saveFood(Food aFood)
     {
+        if(search(aFood.getName()) != null){
+            Toast.makeText(Project.APP_INSTANCE.getApplicationContext(), "The food name already exist", Toast.LENGTH_SHORT).show();
+            return;
+        }
         ContentValues contentValues = new ContentValues();
         contentValues.put(FLD_FOOD_NAME, aFood.getName());
         contentValues.put(FLD_FOOD_TYPE, aFood.getType());
         contentValues.put(FLD_FOOD_PRICE, aFood.getPrice());
-        byte[] data = mUtils.ImageToByteArray(aFood.getImage()); // this is a function
-        contentValues.put(FLD_IMAGE, data);
+
+        contentValues.put(FLD_IMAGE, aFood.getImage());
 
         // TODO : GET IMAGE
        // contentValues.put(FLD_IMAGE, aFood.getImage());
 
 
         // if its new save it
+        long result;
         if (aFood.getDbid() == null)
         {
-
-            long result = mSQLiteDatabaseRW.insert(TBL_FOOD, null, contentValues);
-            if (result == -1)
-                return false;
-            else
-                return true;
+            result = mSQLiteDatabaseRW.insert(TBL_FOOD, null, contentValues);
         } else
         {  // if its already exist update it
-            long result = mSQLiteDatabaseRW.update(TBL_FOOD,
+            result = mSQLiteDatabaseRW.update(TBL_FOOD,
                     contentValues, BaseColumns._ID + "= " + aFood.getDbid(), null);
-            if (result == -1)
-            {
-                return false;
-            } else
-            {
-                return true;
-            }
         }
 
     }
 
-    public Integer removeFood(Integer aFoodID) {
-        int result = mSQLiteDatabaseRW.delete(TBL_FOOD
-                , FLD_BASE_TYPE_KEY + " = " + Arrays.toString(new String[aFoodID]), null);
-        return result;
+
+    private Food search(String name){
+        String query = "select * from " + TBL_FOOD + " where " + FLD_FOOD_NAME + "=\"" + name +  "\"";
+        Cursor res = mSQLiteDatabaseRO.rawQuery(query, new String[]{});
+        if(res.getCount() < 1)
+            return null;
+        res.moveToFirst();
+        Food food = new Food(res.getInt(res.getColumnIndex("_id")),
+                res.getInt(res.getColumnIndex(FLD_FOOD_PRICE)),
+                res.getString(res.getColumnIndex(FLD_FOOD_NAME)),
+                res.getString(res.getColumnIndex(FLD_FOOD_TYPE)),
+                res.getString(res.getColumnIndex(FLD_IMAGE)));
+        res.close();
+        return food;
     }
 
-//    public ArrayListFood loadFoodList(String aType){
-//        ArrayListFood arrayListFood= new ArrayListFood();
-//        String query = "select * from " + TBL_FOOD +
-//                " WHERE " + FLD_FOOD_TYPE + " = " + aType;
-//
-//        Cursor res = mSQLiteDatabaseRO.rawQuery(query, new String[]{});
-//        res.moveToFirst();
-//        while (!res.isAfterLast()) {
-//
-//            Bitmap img = Utils.BitmapFromBytes(Utils.ImageToByteArray(res.getString(res.getColumnIndex(FLD_IMAGE))));
-//
-//            ImageButton imgBtn = new ImageButton(mContext);
-//            imgBtn.setBackground(new BitmapDrawable(mContext.getResources(), img));
-//
-//            Food food = new Food(res.getInt(res.getColumnIndex(FLD_BASE_TYPE_KEY)),
-//                                 res.getInt(res.getColumnIndex(FLD_FOOD_PRICE)),
-//                                 res.getString(res.getColumnIndex(FLD_FOOD_NAME)),
-//                                 res.getString(res.getColumnIndex(FLD_FOOD_TYPE)),
-//                                 imgBtn);
-//            arrayListFood.add(food);
-//            res.moveToNext();
-//        }
-//        arrayListFood.setLoaded(new Date());
-//        return arrayListFood;
-//    }
+    public void removeFood(String foodname) {
+        Food f = search(foodname);
+        if(f == null) {
+            Toast.makeText(Project.APP_INSTANCE.getApplicationContext(), "The food name does not exist", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        mSQLiteDatabaseRW.delete(TBL_FOOD
+                ,  "_id = " + f.getDbid(), null);
+        Toast.makeText(Project.APP_INSTANCE.getApplicationContext(), foodname + " was deleted successfully", Toast.LENGTH_SHORT).show();
+    }
 
+    public ArrayListFood loadFoodList(String aType){
+        ArrayListFood arrayListFood= new ArrayListFood();
+        String query = "select * from " + TBL_FOOD +
+                " WHERE " + FLD_FOOD_TYPE + "=\"" + aType+"\"";
+
+        Cursor res = mSQLiteDatabaseRO.rawQuery(query, new String[]{});
+        res.moveToFirst();
+        while (!res.isAfterLast()) {
+
+            Food food = new Food(res.getInt(res.getColumnIndex("_id")),
+                                 res.getInt(res.getColumnIndex(FLD_FOOD_PRICE)),
+                                 res.getString(res.getColumnIndex(FLD_FOOD_NAME)),
+                                 res.getString(res.getColumnIndex(FLD_FOOD_TYPE)),
+                                 res.getString(res.getColumnIndex(FLD_IMAGE)));
+            arrayListFood.add(food);
+            res.moveToNext();
+        }
+        arrayListFood.setLoaded(new Date());
+        res.close();
+        return arrayListFood;
+    }
+
+    public int getCount(){
+        String query = "select * from " + TBL_FOOD;
+        Cursor c = mSQLiteDatabaseRO.rawQuery(query, new String[]{});
+        int count = c.getCount();
+        c.close();
+        return count;
+    }
 }

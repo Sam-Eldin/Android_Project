@@ -31,16 +31,12 @@ public class WMSQLiteOpenHelper extends SQLiteOpenHelper
     // TODO: table group and its properties
 
     public final static String TBL_GROUP = "groop";
-    public final static String FLD_GROUP_NAME = "name";
 
 
 
     // general fields
     public static final String FLD_BASE_TYPE_KEY = "integer primary key autoincrement";
-    public static final String FLD_TYPE_INTEGER = "integer";
-    public static final String FLD_TYPE_REAL = "real";
-    public static final String FLD_TYPE_BLOB = "blob";
-    public static final String FLD_TYPE_VARCHAR_2 = "nvarchar(2)";
+    public static final String FLD_TYPE_VARCHAR_1024 = "nvarchar(1024)";
     public static final String FLD_TYPE_VARCHAR_5 = "nvarchar(5)";
     public static final String FLD_TYPE_VARCHAR_30 = "nvarchar(30)";
 
@@ -76,14 +72,8 @@ public class WMSQLiteOpenHelper extends SQLiteOpenHelper
                 FLD_FOOD_NAME + " " + FLD_TYPE_VARCHAR_30 + " NOT NULL " + "," +
                 FLD_FOOD_TYPE + " " + FLD_TYPE_VARCHAR_30 + " NOT NULL " + "," +
                 FLD_FOOD_PRICE + " " + FLD_TYPE_VARCHAR_5 + " NOT NULL " + "," +
-                FLD_IMAGE + " " + FLD_TYPE_BLOB + ");";
+                FLD_IMAGE + " " + FLD_TYPE_VARCHAR_1024 + ");";
 
-        Log.d(TAG, strSQL);
-        db.execSQL(strSQL);
-
-        strSQL = "CREATE TABLE " + TBL_GROUP + " " +
-                " (" + _ID + " " + FLD_BASE_TYPE_KEY + " NOT NULL " + "," +
-                FLD_GROUP_NAME + " " + FLD_TYPE_VARCHAR_30 + " NOT NULL " + ");";
         Log.d(TAG, strSQL);
         db.execSQL(strSQL);
 
@@ -96,8 +86,8 @@ public class WMSQLiteOpenHelper extends SQLiteOpenHelper
     {
         if (oldVersion != newVersion)
         {
-            db.execSQL(new StringBuilder().append("DROP TABLE IF EXISTS ").append(TBL_FOOD).append(";").toString());
-            db.execSQL(new StringBuilder().append("DROP TABLE IF EXISTS ").append(TBL_GROUP).append(";").toString());
+            db.execSQL("DROP TABLE IF EXISTS " + TBL_FOOD + ";");
+            db.execSQL("DROP TABLE IF EXISTS " + TBL_GROUP + ";");
             onCreate(db);
         }
     }

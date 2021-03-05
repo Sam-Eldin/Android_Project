@@ -20,7 +20,7 @@ public class ActPhoto extends AppCompatActivity
         setContentView(R.layout.act_photo_full_screen);
 
 
-        mImage = (ImageView)findViewById(R.id.image);
+        mImage = findViewById(R.id.image);
 
         String txtImage = getIntent().getStringExtra("img");
 

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="foodtypes">
+        <item>Main Meal</item>
+        <item>Salad</item>
+        <item>Hot Drinks</item>
+        <item>Cold Drinks</item>
+    </string-array>
+</resources>    

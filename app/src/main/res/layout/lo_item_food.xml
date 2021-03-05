@@ -5,35 +5,39 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
+    android:weightSum="5"
     android:orientation="vertical"
     >
     <ImageView
         android:id="@+id/imgBtnFood"
+        android:layout_weight="2"
         android:layout_width="100dp"
-        android:layout_height="match_parent"
-        android:scaleType="centerCrop"
+        android:layout_height="0dp"
+        android:scaleType="fitXY"
 
-        />
+        android:contentDescription="@string/yahoo" />
     <TextView
         android:id="@+id/txtItmFood"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textAlignment="center"
-        android:gravity="center_horizontal"
+        android:textAlignment="textStart"
+        android:paddingLeft="10sp"
+        android:gravity="fill_vertical"
         android:text="@string/food_name"
         android:textStyle="bold"
-        android:textSize="15sp"
+        android:textSize="16sp"
         android:textColor="@color/black"
         />
     <TextView
         android:id="@+id/txtItmPrice"
+        android:paddingLeft="10sp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:gravity="center_horizontal"
         android:text="@string/price"
         android:textAlignment="center"
         android:textStyle="bold"
-        android:textSize="15sp"
+        android:textSize="16sp"
         android:textColor="@color/black"
         />
 

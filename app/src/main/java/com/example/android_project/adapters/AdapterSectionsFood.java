@@ -1,6 +1,7 @@
 package com.example.android_project.adapters;
 
-import com.example.android_project.activities.FragmentAllTypes;
+import com.example.android_project.fragments.FragmentAllTypes;
+import com.example.android_project.fragments.FragmentSalad;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -11,43 +12,47 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 
-public class AdapterSectionsFood extends FragmentPagerAdapter
-{
-    private final List<Fragment>mFragmentList = new ArrayList<>();
-    private final List<String>mFragmentTitleList = new ArrayList<>();
+import org.jetbrains.annotations.NotNull;
+
+public class AdapterSectionsFood extends FragmentPagerAdapter {
+    private final List<Fragment> mFragmentList = new ArrayList<>();
+    private final List<String> mFragmentTitleList = new ArrayList<>();
 
 
-    public void addFragmentAllTypes(FragmentAllTypes aFragmentAll, String aTitleAll){
+    public void addFragmentAllTypes(FragmentAllTypes aFragmentAll, String aTitleAll) {
         mFragmentList.add(aFragmentAll);
         mFragmentTitleList.add(aTitleAll);
     }
-    public AdapterSectionsFood(@NonNull FragmentManager fm)
-    {
-        super(fm);
+
+    public void addFragment(Fragment fm, String title) {
+        mFragmentList.add(fm);
+        mFragmentTitleList.add(title);
     }
 
-    public AdapterSectionsFood(@NonNull FragmentManager fm, int behavior)
-    {
-        super(fm, behavior);
+    public AdapterSectionsFood(@NonNull FragmentManager fm) {
+        super(fm, BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT);
     }
 
     @Nullable
     @Override
-    public CharSequence getPageTitle(int position)
-    {
+    public CharSequence getPageTitle(int position) {
         return mFragmentTitleList.get(position);
     }
 
-    @NonNull
+    @NotNull
     @Override
-    public Fragment getItem(int position)
-    {
-        return mFragmentList.get(position);
+    public Fragment getItem(int position) {
+        switch (position) {
+            case 0:
+                return new FragmentAllTypes();
+            case 1:
+                return new FragmentSalad();
+        }
+        return new FragmentSalad();
     }
 
     @Override
-    public int getCount()
-    {
+    public int getCount() {
         return mFragmentList.size();
     }
 }

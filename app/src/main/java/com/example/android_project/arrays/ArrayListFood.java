@@ -17,6 +17,4 @@ public class ArrayListFood extends ArrayList<Food>
     public void setLoaded(Date loaded) {
         this.loaded = loaded;
     }
-
-
 }
