@@ -20,5 +20,7 @@
         android:layout_marginBottom="4dp"
         android:hint="@string/food_name"
         android:importantForAutofill="no" />
+
+        <requestFocus />
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

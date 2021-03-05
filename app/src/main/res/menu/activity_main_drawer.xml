@@ -1,13 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:showIn="navigation_view">
-
-    <group android:checkableBehavior="single">
-        <item
-            android:id="@+id/nav_home"
-            android:icon="@drawable/ic_menu_camera"
-            android:title="@string/menu_home" />
-
-    </group>
+    tools:showIn="navigation_view"
+    >
+    <item
+        android:title="@string/names_sam_eldin_amp_jimmy_mograbi"
+        />
+    <item
+        android:title="@string/email_address"
+        />
+    <item
+        android:title="@string/jameelmograbi_gamil_com"
+        />
+    <item
+        android:title="@string/samheldin_99_gamil_com"
+        />
 </menu>

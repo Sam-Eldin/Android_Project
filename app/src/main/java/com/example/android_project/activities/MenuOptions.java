@@ -3,7 +3,10 @@ package com.example.android_project.activities;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.graphics.Color;
 import android.os.Bundle;
+import android.os.PatternMatcher;
+import android.util.Patterns;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -27,15 +30,17 @@ import androidx.viewpager.widget.ViewPager;
 import com.example.android_project.R;
 import com.example.android_project.adapters.AdapterSectionsFood;
 import com.example.android_project.adapters.RecyclerViewAdapter;
-import com.example.android_project.arrays.ArrayListFood;
 import com.example.android_project.common.Project;
 import com.example.android_project.db.WMDBAPI;
+import com.example.android_project.db.WMSQLiteOpenHelper;
 import com.example.android_project.entities.Food;
 import com.example.android_project.entities.FoodTypes;
 import com.example.android_project.fragments.FragmentAllTypes;
 import com.example.android_project.fragments.FragmentSalad;
 import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.tabs.TabLayout;
+
+import java.util.regex.Pattern;
 
 
 public class MenuOptions extends AppCompatActivity implements AdapterView.OnItemSelectedListener, NavigationView.OnNavigationItemSelectedListener {
@@ -55,23 +60,48 @@ public class MenuOptions extends AppCompatActivity implements AdapterView.OnItem
         project = Project.APP_INSTANCE;
         mContext = this;
         recyclerView = findViewById(R.id.foodRecycle);
-        recyclerView.setLayoutManager(new GridLayoutManager(this, 3));
+        recyclerView.setLayoutManager(new GridLayoutManager(this, 2));
         recyclerView.setItemAnimator(new DefaultItemAnimator());
 
         db = Project.APP_INSTANCE.getWMDBAPI();
-        project.setmArrayListFood(db.loadFoodList(FoodTypes.Salad.getType()));
+        project.setmArrayListFood(db.loadFoodList(FoodTypes.MainDish.getType()));
 
 
         RecyclerViewAdapter recyclerViewAdapter = new RecyclerViewAdapter(mContext, project.getmArrayListFood(), null);
         recyclerView.setAdapter(recyclerViewAdapter);
 
 
-        (findViewById(R.id.AddButton)).setOnClickListener(v -> showDialog());
+        (findViewById(R.id.AddButton)).setOnClickListener(v -> showDialogAdd());
+        (findViewById(R.id.RemoveButton)).setOnClickListener(v -> showDialogRemove());
     }
 
-
-    private void showDialog() {
+    private void showDialogRemove(){
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(mContext);
+        LayoutInflater inflater = (LayoutInflater) mContext.getSystemService(LAYOUT_INFLATER_SERVICE);
+        final View dialogView = inflater.inflate(R.layout.deletedatadialog, null);
+        dialogBuilder.setView(dialogView);
+        final EditText foodname = dialogView.findViewById(R.id.foodname);
+
+        dialogBuilder.setTitle("Enter Food Data");
+        dialogBuilder.setMessage("All data must be entered");
+        dialogBuilder.setPositiveButton("Remove", (dialog, which) -> {
+            if(foodname.getText().length() == 0){
+                Toast.makeText(Project.APP_INSTANCE.getApplicationContext(), "You must enter the food name", Toast.LENGTH_SHORT).show();
+                return;
+            }
+            db.removeFood(foodname.getText().toString());
+            updateTab(currentTab);
+        });
+
+        dialogBuilder.setNegativeButton("Cancel", (dialog, whichButton) -> {
+            // pass
+        });
+        AlertDialog ad = dialogBuilder.create();
+        ad.show();
+        ad.getButton(AlertDialog.BUTTON_POSITIVE).setTextColor(Color.RED);
+    }
+    private void showDialogAdd() {
+        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(mContext).setTitle("thi is good");
         LayoutInflater inflater = (LayoutInflater) mContext.getSystemService(LAYOUT_INFLATER_SERVICE);
         final View dialogView = inflater.inflate(R.layout.enterdatadialog, null);
         dialogBuilder.setView(dialogView);
@@ -89,52 +119,47 @@ public class MenuOptions extends AppCompatActivity implements AdapterView.OnItem
 
         dialogBuilder.setTitle("Enter Food Data");
         dialogBuilder.setMessage("All data must be entered");
-        dialogBuilder.setPositiveButton("Save", new DialogInterface.OnClickListener() {
-            /**
-             * @param dialog do stuff
-             * @param whichButton stuffy stuff
-             */
-            public void onClick(DialogInterface dialog, int whichButton) {
-                if (foodname.getText().length() == 0) {
-                    Toast.makeText(Project.APP_INSTANCE.getApplicationContext(), "You must enter the food name", Toast.LENGTH_SHORT).show();
-                    return;
-                }
-                if (foodprice.getText().length() == 0) {
-                    Toast.makeText(Project.APP_INSTANCE.getApplicationContext(), "You must enter the food price", Toast.LENGTH_SHORT).show();
-                    return;
-                }
-                if (foodimage.getText().length() == 0) {
-                    Toast.makeText(Project.APP_INSTANCE.getApplicationContext(), "You must enter the food url", Toast.LENGTH_SHORT).show();
-                    return;
-                }
+        dialogBuilder.setPositiveButton("Save", (dialog, whichButton) -> {
+            if (foodname.getText().length() == 0) {
+                Toast.makeText(Project.APP_INSTANCE.getApplicationContext(), "You must enter the food name", Toast.LENGTH_SHORT).show();
+                return;
+            }
+            if (foodprice.getText().length() == 0) {
+                Toast.makeText(Project.APP_INSTANCE.getApplicationContext(), "You must enter the food price", Toast.LENGTH_SHORT).show();
+                return;
+            }
+            if (foodimage.getText().length() == 0) {
+                Toast.makeText(Project.APP_INSTANCE.getApplicationContext(), "You must enter the food url", Toast.LENGTH_SHORT).show();
+                return;
+            }
+            if (!Pattern.matches(Patterns.WEB_URL.pattern(),foodimage.getText().toString())) {
+                Toast.makeText(Project.APP_INSTANCE.getApplicationContext(), "You must enter a valid url", Toast.LENGTH_SHORT).show();
+                return;
+            }
+            if(!foodimage.getText().toString().contains(".jpg") && !foodimage.getText().toString().contains(".png") && !foodimage.getText().toString().contains(".jpeg")){
+                Toast.makeText(Project.APP_INSTANCE.getApplicationContext(), "You must enter a valid url that is a picture of type {jpg, png, jpeg}", Toast.LENGTH_SHORT).show();
+                return;
+            }
 
-                Food food = new Food();
-                food.setName(foodname.getText().toString());
-                switch (foodtype.getSelectedItemPosition()){
-                    case 0:
-                        food.setType(FoodTypes.MainDish.getType()); break;
-                    case 1:
-                        food.setType(FoodTypes.Salad.getType()); break;
-                    case 2:
-                        food.setType(FoodTypes.HotDrinks.getType()); break;
-                    case 3:
-                        food.setType(FoodTypes.ColdDrinks.getType()); break;
-                }
-                food.setPrice(Integer.parseInt(foodprice.getText().toString()));
-                food.setImage(foodimage.getText().toString());
-                db.saveFood(food);
-                updateTab(currentTab);
+            Food food = new Food();
+            food.setName(foodname.getText().toString());
+            switch (foodtype.getSelectedItemPosition()){
+                case 0:
+                    food.setType(FoodTypes.MainDish.getType()); break;
+                case 1:
+                    food.setType(FoodTypes.Salad.getType()); break;
+                case 2:
+                    food.setType(FoodTypes.HotDrinks.getType()); break;
+                case 3:
+                    food.setType(FoodTypes.ColdDrinks.getType()); break;
             }
+            food.setPrice(Integer.parseInt(foodprice.getText().toString()));
+            food.setImage(foodimage.getText().toString());
+            db.saveFood(food);
+            updateTab(currentTab);
         });
-        dialogBuilder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-            /**
-             *
-             * @param dialog do stuff
-             * @param whichButton stuffy stuff
-             */
-            public void onClick(DialogInterface dialog, int whichButton) {
-                //pass
-            }
+        dialogBuilder.setNegativeButton("Cancel", (dialog, whichButton) -> {
+            //pass
         });
         dialogBuilder.create().show();
     }
@@ -204,8 +229,8 @@ public class MenuOptions extends AppCompatActivity implements AdapterView.OnItem
     private void setupViewPager(ViewPager viewPager) {
 
         AdapterSectionsFood foodAdapter = new AdapterSectionsFood(getSupportFragmentManager());
-        foodAdapter.addFragment(new FragmentSalad(), "Salad");
-        foodAdapter.addFragment(new FragmentAllTypes(), "Main");
+//        foodAdapter.addFragment(new FragmentSalad(), "Salad");
+//        foodAdapter.addFragment(new FragmentAllTypes(), "Main");
 
         viewPager.setAdapter(foodAdapter);
     }

@@ -16,38 +16,33 @@ import com.example.android_project.entities.Food;
 
 import java.util.ArrayList;
 
-public class AdapterFoodList extends BaseAdapter
-{
+public class AdapterFoodList extends BaseAdapter {
 
     private final ArrayListFood mArrayListFood;
 
-    public AdapterFoodList(ArrayListFood aArrayListGroup){
+    public AdapterFoodList(ArrayListFood aArrayListGroup) {
         mArrayListFood = aArrayListGroup;
 
     }
 
     @Override
-    public int getCount()
-    {
+    public int getCount() {
         return mArrayListFood.size();
     }
 
     @Override
-    public Object getItem(int i)
-    {
+    public Object getItem(int i) {
         return mArrayListFood.getLoaded();
     }
 
     @Override
-    public long getItemId(int i)
-    {
+    public long getItemId(int i) {
         return 0;
     }
 
     @SuppressLint("InflateParams")
     @Override
-    public View getView(int position, View convertView, ViewGroup parent)
-    {
+    public View getView(int position, View convertView, ViewGroup parent) {
 
         final Food food;
         View resultView;
@@ -58,8 +53,7 @@ public class AdapterFoodList extends BaseAdapter
         ImageButton imgBtnFood;
 
 
-        if (convertView == null)
-        {
+        if (convertView == null) {
             layoutInflater = (LayoutInflater) Project.APP_INSTANCE.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
             // create the custom layout to show the "workers"
@@ -75,8 +69,7 @@ public class AdapterFoodList extends BaseAdapter
             resultView.setTag(R.id.txtItmPrice, txtFoodPrice);
             resultView.setTag(R.id.imgBtnFood, imgBtnFood);
 
-        } else
-        {
+        } else {
             resultView = convertView;
 
             // extract all the pointers to the objects from the "tag" list.
@@ -85,11 +78,9 @@ public class AdapterFoodList extends BaseAdapter
         }
 
 
-        food =mArrayListFood.get(position);
+        food = mArrayListFood.get(position);
         txtFoodName.setText(food.getName());
         txtFoodPrice.setText(food.getPrice());
-
-
 
 
         return resultView;

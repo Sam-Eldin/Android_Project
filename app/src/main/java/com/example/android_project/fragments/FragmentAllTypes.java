@@ -28,7 +28,6 @@ public class FragmentAllTypes extends Fragment implements RecyclerViewAdapter.It
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-//        Toast.makeText(super.getContext(), "onCreateView", Toast.LENGTH_LONG).show();
         View view = inflater.inflate(R.layout.fragment_all_types, container, false);
         mlstFragmentAllTypes = view.findViewById(R.id.lstFragmentAllTypes);
         return view;
@@ -37,12 +36,9 @@ public class FragmentAllTypes extends Fragment implements RecyclerViewAdapter.It
     @Override
     public void onViewStateRestored(@Nullable Bundle savedInstanceState) {
         super.onViewStateRestored(savedInstanceState);
-        Toast.makeText(super.getContext(), "onCreateView", Toast.LENGTH_LONG).show();
     }
 
     @Override
     public void onItemClick(Food item) {
-        Toast.makeText(mContext.getApplicationContext(), item.getName() + " is clicked", Toast.LENGTH_SHORT).show();
-
     }
 }

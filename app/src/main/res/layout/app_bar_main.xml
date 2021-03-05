@@ -25,7 +25,7 @@
 
             <com.google.android.material.tabs.TabItem
                 android:id="@+id/tabAllTypes"
-                android:text="@string/all_types"
+                android:text="@string/MainMeal"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 />
@@ -65,12 +65,24 @@
 
 
     <include layout="@layout/content_main" />
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
+
+    <ImageButton
         android:id="@+id/AddButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
         android:layout_margin="@dimen/fab_margin"
-        android:src="@drawable/ic_plus"
-        android:contentDescription="@string/add_new_item_to_the_database" />
+        android:background="#00000000"
+        android:contentDescription="@string/remove_item_from_the_database"
+        android:src="@drawable/addfoodicon" />
+
+    <ImageButton
+        android:id="@+id/RemoveButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|start"
+        android:layout_margin="@dimen/fab_margin"
+        android:background="#00000000"
+        android:contentDescription="@string/remove_item_from_the_database"
+        android:src="@drawable/removefoodicon" />
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

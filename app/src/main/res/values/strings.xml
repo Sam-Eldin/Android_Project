@@ -14,7 +14,7 @@
     <string name="food_name">Food Name</string>
     <string name="price">Price</string>
     <string name="type">Type</string>
-    <string name="all_types">All Types</string>
+    <string name="MainMeal">Main Dish</string>
     <string name="salad">salad</string>
     <string name="hot_drinks">Hot drinks</string>
     <string name="cold_drinks">Cold drinks</string>
@@ -22,4 +22,10 @@
     <string name="food_price">Food Price</string>
     <string name="food_type">Food Type</string>
     <string name="add_new_item_to_the_database">Add new item to the database</string>
+    <string name="remove_item_from_the_database">remove item from the database</string>
+    <string name="yahoo">YAHOO</string>
+    <string name="names_sam_eldin_amp_jimmy_mograbi"><![CDATA[Names: Sam Eldin & Jimmy mograbi]]></string>
+    <string name="email_address">Email Address:</string>
+    <string name="jameelmograbi_gamil_com"><![CDATA[<---jameelmograbi@gamil.com--->]]></string>
+    <string name="samheldin_99_gamil_com"><![CDATA[<---samheldin.99@gamil.com--->]]></string>
 </resources>

@@ -43,13 +43,10 @@ public class FragmentSalad extends Fragment implements RecyclerViewAdapter.ItemL
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-//        Toast.makeText(mContext.getApplicationContext(), "onViewCreated", Toast.LENGTH_SHORT).show();
     }
 
     @Override
     public void onItemClick(Food item)
     {
-        Toast.makeText(mContext.getApplicationContext(), item.getName() + " is clicked", Toast.LENGTH_SHORT).show();
-
     }
 }

@@ -11,10 +11,10 @@ import com.example.android_project.arrays.ArrayListFood;
 import com.example.android_project.common.Project;
 import com.example.android_project.entities.Food;
 
-import java.util.Arrays;
 import java.util.Date;
 
-import static com.example.android_project.db.WMSQLiteOpenHelper.FLD_BASE_TYPE_KEY;
+import kotlin.contracts.ReturnsNotNull;
+
 import static com.example.android_project.db.WMSQLiteOpenHelper.FLD_FOOD_NAME;
 import static com.example.android_project.db.WMSQLiteOpenHelper.FLD_FOOD_PRICE;
 import static com.example.android_project.db.WMSQLiteOpenHelper.FLD_FOOD_TYPE;
@@ -40,8 +40,12 @@ public class WMDBAPI {
 
     }
 
-    public boolean saveFood(Food aFood)
+    public void saveFood(Food aFood)
     {
+        if(search(aFood.getName()) != null){
+            Toast.makeText(Project.APP_INSTANCE.getApplicationContext(), "The food name already exist", Toast.LENGTH_SHORT).show();
+            return;
+        }
         ContentValues contentValues = new ContentValues();
         contentValues.put(FLD_FOOD_NAME, aFood.getName());
         contentValues.put(FLD_FOOD_TYPE, aFood.getType());
@@ -63,13 +67,34 @@ public class WMDBAPI {
             result = mSQLiteDatabaseRW.update(TBL_FOOD,
                     contentValues, BaseColumns._ID + "= " + aFood.getDbid(), null);
         }
-        return result != -1;
 
     }
 
-    public Integer removeFood(Integer aFoodID) {
-        return mSQLiteDatabaseRW.delete(TBL_FOOD
-                , FLD_BASE_TYPE_KEY + " = " + Arrays.toString(new String[aFoodID]), null);
+
+    private Food search(String name){
+        String query = "select * from " + TBL_FOOD + " where " + FLD_FOOD_NAME + "=\"" + name +  "\"";
+        Cursor res = mSQLiteDatabaseRO.rawQuery(query, new String[]{});
+        if(res.getCount() < 1)
+            return null;
+        res.moveToFirst();
+        Food food = new Food(res.getInt(res.getColumnIndex("_id")),
+                res.getInt(res.getColumnIndex(FLD_FOOD_PRICE)),
+                res.getString(res.getColumnIndex(FLD_FOOD_NAME)),
+                res.getString(res.getColumnIndex(FLD_FOOD_TYPE)),
+                res.getString(res.getColumnIndex(FLD_IMAGE)));
+        res.close();
+        return food;
+    }
+
+    public void removeFood(String foodname) {
+        Food f = search(foodname);
+        if(f == null) {
+            Toast.makeText(Project.APP_INSTANCE.getApplicationContext(), "The food name does not exist", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        mSQLiteDatabaseRW.delete(TBL_FOOD
+                ,  "_id = " + f.getDbid(), null);
+        Toast.makeText(Project.APP_INSTANCE.getApplicationContext(), foodname + " was deleted successfully", Toast.LENGTH_SHORT).show();
     }
 
     public ArrayListFood loadFoodList(String aType){
@@ -79,7 +104,6 @@ public class WMDBAPI {
 
         Cursor res = mSQLiteDatabaseRO.rawQuery(query, new String[]{});
         res.moveToFirst();
-        Toast.makeText(Project.APP_INSTANCE.getApplicationContext(), "Count: " + res.getColumnCount(), Toast.LENGTH_SHORT).show();
         while (!res.isAfterLast()) {
 
             Food food = new Food(res.getInt(res.getColumnIndex("_id")),
@@ -95,4 +119,11 @@ public class WMDBAPI {
         return arrayListFood;
     }
 
+    public int getCount(){
+        String query = "select * from " + TBL_FOOD;
+        Cursor c = mSQLiteDatabaseRO.rawQuery(query, new String[]{});
+        int count = c.getCount();
+        c.close();
+        return count;
+    }
 }
