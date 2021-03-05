@@ -94,6 +94,7 @@ public class MenuOptions extends AppCompatActivity implements AdapterView.OnItem
     }
 
 
+
     public void initComponents()
     {
         setContentView(R.layout.activity_menu_options);
