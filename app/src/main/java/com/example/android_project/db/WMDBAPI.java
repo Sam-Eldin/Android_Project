@@ -53,20 +53,19 @@ public class WMDBAPI {
 
         contentValues.put(FLD_IMAGE, aFood.getImage());
 
-        // TODO : GET IMAGE
-       // contentValues.put(FLD_IMAGE, aFood.getImage());
+        mSQLiteDatabaseRW.insert(TBL_FOOD, null, contentValues);
 
 
         // if its new save it
-        long result;
-        if (aFood.getDbid() == null)
-        {
-            result = mSQLiteDatabaseRW.insert(TBL_FOOD, null, contentValues);
-        } else
-        {  // if its already exist update it
-            result = mSQLiteDatabaseRW.update(TBL_FOOD,
-                    contentValues, BaseColumns._ID + "= " + aFood.getDbid(), null);
-        }
+//        long result;
+//        if (aFood.getDbid() == null)
+//        {
+//            result = mSQLiteDatabaseRW.insert(TBL_FOOD, null, contentValues);
+//        } else
+//        {  // if its already exist update it
+//            result = mSQLiteDatabaseRW.update(TBL_FOOD,
+//                    contentValues, BaseColumns._ID + "= " + aFood.getDbid(), null);
+//        }
 
     }
 

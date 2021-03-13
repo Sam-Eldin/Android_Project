@@ -1,19 +1,11 @@
 package com.example.android_project.entities;
 
-public enum FoodTypes {
+public class FoodTypes
+{
 
-    MainDish("MainMeal"),
-    Salad("Salad"),
-    HotDrinks("HDrinks"),
-    ColdDrinks("CDrinks");
+    public static final String MainDish = ("MainMeal");
+    public static final String Salad = ("Salad");
+    public static final String HotDrinks = ("HDrinks");
+    public static final String ColdDrinks = ("CDrinks");
 
-    private final String foodtype;
-
-    FoodTypes(String envUrl) {
-        this.foodtype = envUrl;
-    }
-
-    public String getType() {
-        return foodtype;
-    }
 }

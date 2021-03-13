@@ -1,12 +1,12 @@
 package com.example.android_project.entities;
 
 public class Food {
+
     private Integer mDbid;
     private String mType;
     private Integer mPrice;
     private String mName;
     private String mImage;
-
 
     public Food() {
     }
@@ -59,14 +59,6 @@ public class Food {
 
     public void setImage(String image) {
         mImage = image;
-    }
-
-    public void updateFrom(Food aFood) {
-        mDbid = aFood.mDbid;
-        mName = aFood.mName;
-        mPrice = aFood.mPrice;
-        mType = aFood.mType;
-        mImage = aFood.mImage;
     }
 
 

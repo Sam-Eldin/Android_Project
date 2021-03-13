@@ -4,15 +4,10 @@ import android.content.Context;
 import android.database.DatabaseErrorHandler;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-import android.provider.BaseColumns;
 import android.util.Log;
-
-import androidx.annotation.Nullable;
-
 import static android.provider.BaseColumns._ID;
 
-public class WMSQLiteOpenHelper extends SQLiteOpenHelper
-{
+public class WMSQLiteOpenHelper extends SQLiteOpenHelper {
 
     public static final String TAG = "WMSQLiteOpenHelper";
 
@@ -28,22 +23,14 @@ public class WMSQLiteOpenHelper extends SQLiteOpenHelper
     public final static String FLD_FOOD_PRICE = "price";
     public final static String FLD_IMAGE = "image";
 
-    // TODO: table group and its properties
-
-    public final static String TBL_GROUP = "groop";
-
-
-
     // general fields
     public static final String FLD_BASE_TYPE_KEY = "integer primary key autoincrement";
     public static final String FLD_TYPE_VARCHAR_1024 = "nvarchar(1024)";
     public static final String FLD_TYPE_VARCHAR_5 = "nvarchar(5)";
     public static final String FLD_TYPE_VARCHAR_30 = "nvarchar(30)";
 
-
     public WMSQLiteOpenHelper(Context aContext) {
         this(aContext, DB_NAME, null, DB_VERSION);
-
     }
 
     public WMSQLiteOpenHelper(Context context, String name, SQLiteDatabase.CursorFactory factory, int version)
@@ -51,20 +38,10 @@ public class WMSQLiteOpenHelper extends SQLiteOpenHelper
         super(context, name, factory, version);
     }
 
-    private DatabaseErrorHandler mDatabaseErrorHandler = new DatabaseErrorHandler() {
-        @Override
-        public void onCorruption(SQLiteDatabase dbObj) {
-            Log.d(TAG, "db corrupted");
-        }
-    };
-//
-//    private static final String CREATE_TABLE = "create table " + TBL_GROUP + " (" +
-//            _ID
-//            + " INTEGER PRIMARY KEY AUTOINCREMENT, " + FLD_GROUP_NAME + " " + FLD_TYPE_VARCHAR_30 + " TEXT NOT NULL, " + " );";
+    private DatabaseErrorHandler mDatabaseErrorHandler = dbObj -> Log.d(TAG, "db corrupted");
 
     @Override
-    public void onCreate(SQLiteDatabase db)
-    {
+    public void onCreate(SQLiteDatabase db) {
         String strSQL;
 
         strSQL = "CREATE TABLE " + TBL_FOOD + " " +
@@ -77,8 +54,6 @@ public class WMSQLiteOpenHelper extends SQLiteOpenHelper
         Log.d(TAG, strSQL);
         db.execSQL(strSQL);
 
-    //    db.execSQL(CREATE_TABLE);
-
     }
 
     @Override
@@ -87,7 +62,6 @@ public class WMSQLiteOpenHelper extends SQLiteOpenHelper
         if (oldVersion != newVersion)
         {
             db.execSQL("DROP TABLE IF EXISTS " + TBL_FOOD + ";");
-            db.execSQL("DROP TABLE IF EXISTS " + TBL_GROUP + ";");
             onCreate(db);
         }
     }

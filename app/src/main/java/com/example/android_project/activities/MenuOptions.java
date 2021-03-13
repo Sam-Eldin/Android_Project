@@ -2,10 +2,8 @@ package com.example.android_project.activities;
 
 import android.app.AlertDialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.os.PatternMatcher;
 import android.util.Patterns;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -25,18 +23,13 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import androidx.viewpager.widget.ViewPager;
 
 import com.example.android_project.R;
-import com.example.android_project.adapters.AdapterSectionsFood;
 import com.example.android_project.adapters.RecyclerViewAdapter;
 import com.example.android_project.common.Project;
 import com.example.android_project.db.WMDBAPI;
-import com.example.android_project.db.WMSQLiteOpenHelper;
 import com.example.android_project.entities.Food;
 import com.example.android_project.entities.FoodTypes;
-import com.example.android_project.fragments.FragmentAllTypes;
-import com.example.android_project.fragments.FragmentSalad;
 import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.tabs.TabLayout;
 
@@ -64,7 +57,7 @@ public class MenuOptions extends AppCompatActivity implements AdapterView.OnItem
         recyclerView.setItemAnimator(new DefaultItemAnimator());
 
         db = Project.APP_INSTANCE.getWMDBAPI();
-        project.setmArrayListFood(db.loadFoodList(FoodTypes.MainDish.getType()));
+        project.setmArrayListFood(db.loadFoodList(FoodTypes.MainDish));
 
 
         RecyclerViewAdapter recyclerViewAdapter = new RecyclerViewAdapter(mContext, project.getmArrayListFood(), null);
@@ -145,13 +138,13 @@ public class MenuOptions extends AppCompatActivity implements AdapterView.OnItem
             food.setName(foodname.getText().toString());
             switch (foodtype.getSelectedItemPosition()){
                 case 0:
-                    food.setType(FoodTypes.MainDish.getType()); break;
+                    food.setType(FoodTypes.MainDish); break;
                 case 1:
-                    food.setType(FoodTypes.Salad.getType()); break;
+                    food.setType(FoodTypes.Salad); break;
                 case 2:
-                    food.setType(FoodTypes.HotDrinks.getType()); break;
+                    food.setType(FoodTypes.HotDrinks); break;
                 case 3:
-                    food.setType(FoodTypes.ColdDrinks.getType()); break;
+                    food.setType(FoodTypes.ColdDrinks); break;
             }
             food.setPrice(Integer.parseInt(foodprice.getText().toString()));
             food.setImage(foodimage.getText().toString());
@@ -167,9 +160,6 @@ public class MenuOptions extends AppCompatActivity implements AdapterView.OnItem
 
     public void initComponents() {
         setContentView(R.layout.activity_menu_options);
-
-        ViewPager mViewPager = findViewById(R.id.container);
-        setupViewPager(mViewPager);
 
 
         Toolbar toolbar = findViewById(R.id.toolbar);
@@ -227,28 +217,20 @@ public class MenuOptions extends AppCompatActivity implements AdapterView.OnItem
         return false;
     }
 
-    private void setupViewPager(ViewPager viewPager) {
-
-        AdapterSectionsFood foodAdapter = new AdapterSectionsFood(getSupportFragmentManager());
-//        foodAdapter.addFragment(new FragmentSalad(), "Salad");
-//        foodAdapter.addFragment(new FragmentAllTypes(), "Main");
-
-        viewPager.setAdapter(foodAdapter);
-    }
 
     public void updateTab(int id){
         switch (id) {
             case 0:
-                project.setmArrayListFood(db.loadFoodList(FoodTypes.MainDish.getType()));
+                project.setmArrayListFood(db.loadFoodList(FoodTypes.MainDish));
                 break;
             case 1:
-                project.setmArrayListFood(db.loadFoodList(FoodTypes.Salad.getType()));
+                project.setmArrayListFood(db.loadFoodList(FoodTypes.Salad));
                 break;
             case 2:
-                project.setmArrayListFood(db.loadFoodList(FoodTypes.HotDrinks.getType()));
+                project.setmArrayListFood(db.loadFoodList(FoodTypes.HotDrinks));
                 break;
             case 3:
-                project.setmArrayListFood(db.loadFoodList(FoodTypes.ColdDrinks.getType()));
+                project.setmArrayListFood(db.loadFoodList(FoodTypes.ColdDrinks));
                 break;
         }
         RecyclerViewAdapter recyclerViewAdapter = new RecyclerViewAdapter(mContext, project.getmArrayListFood(), null);
